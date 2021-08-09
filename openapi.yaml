@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: A minimal OpenAPI document
+  version: 0.0.1
+paths:
+  /post:
+    get:
+      responses:
+        "200":
+          description: Everything went fine.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    createdAt:
+                      type: string
+                    content:
+                      type: string
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Everything went fine.
