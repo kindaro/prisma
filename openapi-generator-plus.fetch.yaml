@@ -1,0 +1,4 @@
+inputPath: openapi.yaml
+outputPath: fetch
+generator: "@openapi-generator-plus/typescript-fetch-client-generator"
+npm: { }

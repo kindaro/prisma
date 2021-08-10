@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "@openapi-generator-plus/typescript-express-example-server-generator": "^0.14.1",
+    "@openapi-generator-plus/typescript-fetch-client-generator": "^0.19.3",
     "@types/node": "^16.4.13",
     "openapi-generator-plus": "^0.28.1",
     "prisma": "^2.28.0",
