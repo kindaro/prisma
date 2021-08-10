@@ -13,7 +13,8 @@ app.get('/post', async function(_req, res, _next) {
 app.post('/post', async function(req, res, _next) {
     await prisma.post.create ({data: {content: req.body}})
 	  res.status(200).send( )
-})
+});
+app.use("/", express.static('public'))
 
 const options = getopts(process.argv.slice(2), {
 	alias: {
