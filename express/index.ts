@@ -7,10 +7,10 @@ const app = express()
 
 /* Post */
 app.use (express.json ({strict: false}))
-app.get('/post', async function(req, res, next) {
+app.get('/post', async function(_req, res, _next) {
 	  res.status(200).send(await prisma.post.findMany ( ))
 })
-app.post('/post', async function(req, res, next) {
+app.post('/post', async function(req, res, _next) {
     await prisma.post.create ({data: {content: req.body}})
 	  res.status(200).send( )
 })
@@ -26,6 +26,6 @@ const options = getopts(process.argv.slice(2), {
 })
 
 const port = options.port || 3000
-const server = app.listen(port, function() {
+app.listen(port, function() {
 	console.log(`Listening on ${port}`)
 })
