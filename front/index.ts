@@ -6,9 +6,6 @@ declare global {
     interface Window { webpack: any; }
 }
 
-window.webpack = window.webpack || {};
-window.webpack.fetch = fetch
-
 type Message = fetch.Api.GetPost200Response
 const postApi = new fetch.PostApi()
 
