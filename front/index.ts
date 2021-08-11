@@ -1,6 +1,7 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
+import { useState, FunctionComponent } from 'react';
 import ReactDOM from 'react-dom';
 import fetch = require('../fetch')
+import h = require('react-hyperscript');
 
 declare global {
     interface Window { webpack: any; }
@@ -10,31 +11,36 @@ type Message = fetch.Api.GetPost200Response
 const postApi = new fetch.PostApi()
 
 const singleMessage: FunctionComponent<Message> = ({ id, createdAt, content }: Message) =>
-    React.createElement("div", {}, [
-        React.createElement("h5", { key: "1" }, [id]),
-        React.createElement("h6", { key: "2" }, [createdAt]),
-        React.createElement("p", { key: "3" }, [content])
+    h("div.frame.log", {}, [
+        h("div.leftmost.ordinal", { key: 0 }, id),
+        h("div.left.date", { key: "1" }, createdAt),
+        h("div.middle.content", { key: "2" }, content)
     ])
 
 const listOfMessages: FunctionComponent<{ messages: Array<Message> }> =
     ({ messages }: { messages: Array<Message> }) => {
-        return (React.createElement
-            ("div", {}, messages.map((message) =>
-                React.createElement(singleMessage, (Object.assign(message, { key: message.id }))))))
+        return (h
+            ("div.exact", {}, messages.map((message) =>
+                h(singleMessage, (Object.assign(message, { key: message.id }))))))
     }
 
 const inputOfMessage: FunctionComponent = ({ }) => {
-    return React.createElement("div", {},
-        [React.createElement("form", {
+    return h("div.frame.input", {},
+        [h("form.exact", {
             key: "1",
             onSubmit: (event: Event) => {
                 event.preventDefault()
-                var input = (event.currentTarget as HTMLElement).children[0] as HTMLInputElement
-                postApi.postPost (input.value). then (( ) => input.value = "")
+                var input = ((event.currentTarget as HTMLFormElement).elements as any)["message"] as HTMLInputElement
+                console.log(input)
+                postApi.postPost(input.value).then(() => input.value = "")
             }
         },
-            [React.createElement("input", { key: "1" })
-                , React.createElement("button", { key: "2", }, ["Send"])])
+            [h("div.leftmost", { key: 1 })
+                , h("div.left", { key: "2" })
+                , h("textarea.middle", { name: "message", placeholder: "Be true to yourself!", key: "3" })
+                , h("div.right.exact", { key: "4" }, [
+                    h("button.right.fill", {}, ["Send"])])
+            ])
         ]
     )
 }
@@ -42,11 +48,11 @@ const inputOfMessage: FunctionComponent = ({ }) => {
 const application: FunctionComponent = () => {
     const [state, setState] = useState<Array<Message>>([])
     setTimeout((() => postApi.getPost().then(setState)), 1000)
-    return React.createElement
+    return h
         ("div", { className: "App" },
-            [React.createElement(listOfMessages, { messages: state, key: "1" }, [])
-                , React.createElement(inputOfMessage, { key: "2" }, [])])
+            [h(listOfMessages, { messages: state }, [])
+                , h(inputOfMessage, { key: "2" }, [])])
 }
 
-ReactDOM.render(React.createElement(application), document.getElementById('root')
+ReactDOM.render(h(application), document.getElementById('root')
 );

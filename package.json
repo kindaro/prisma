@@ -28,8 +28,10 @@
     "@types/express": "^4.17.13",
     "@types/react": "^17.0.16",
     "@types/react-dom": "^17.0.9",
+    "@types/react-hyperscript": "^3.0.5",
     "express": "^4.17.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-hyperscript": "^3.2.0"
   }
 }
